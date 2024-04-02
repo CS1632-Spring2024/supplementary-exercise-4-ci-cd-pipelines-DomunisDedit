@@ -18,8 +18,18 @@ public class RentACatImpl implements RentACat {
 	 */
 
 	public boolean returnCat(int id) {
-		// TODO: Fill in
-		return false;
+		Cat temp = getCat(id); // temp cat.
+		if (temp == null) { // if getCat returns a null, therefore cat does not exist.
+			return false; 
+		}
+		if (temp.getRented() == true) { // if getRented returns a true, a cat is being rented. Therefore can be returned.
+			temp.returnCat(); // then return that cat.
+			System.out.println("Welcome back, " + temp.getName() + "!");
+			return true;
+		} else { // if getRented returns a false, cat is not being rented. Therefore cannot be returned.
+			System.out.println(temp.getName() + " is already here!");
+			return false;
+		}
 	}
 
 	/**
@@ -33,8 +43,18 @@ public class RentACatImpl implements RentACat {
 	 */
 
 	public boolean rentCat(int id) {
-		// TODO: Fill in
-		return false;
+		Cat temp = getCat(id); // temp cat.
+		if (temp == null) { // if getCat returns a null, therefore cat does not exist.
+			return false;
+		}
+		if (temp.getRented() == true) { // if getRented returns a true, a cat is rented. Therefore cannot be rented out.
+			System.out.println("Sorry, " + temp.getName() + " is not here!");
+			return false;
+		} else { // if it returns false, a cat can be rented.
+			temp.rentCat();
+			System.out.println(temp.getName() + " has been rented.");
+			return true;
+		}
 	}
 
 	/**
@@ -45,10 +65,15 @@ public class RentACatImpl implements RentACat {
 	 * @param id the ID of the cat to rename
 	 * @return true if cat exists, false otherwise
 	 */
-
 	public boolean renameCat(int id, String name) {
-		// TODO: Fill in
-		return false;
+		Cat temp = getCat(id); // temp cat
+		if(temp != null) { // if the cat exists, then rename the cat
+			temp.renameCat(name); 
+			return true;
+		} else { // otherwise cat does not exist.
+			return false;
+		}
+
 	}
 
 	/**
@@ -60,11 +85,16 @@ public class RentACatImpl implements RentACat {
 	 * 
 	 * @return "\n"-delimited list of rentable cats
 	 */
-
 	public String listCats() {
-		// TODO: Fill in
-		return "WRITE CODE FOR THIS";
+		StringBuilder catListBuilder = new StringBuilder();
+		for (Cat cat : cats) { // checks each cat.
+			if (!cat.getRented()) { // if its not rented.
+				catListBuilder.append(cat.toString()).append("\n"); // add to the string, with new line.
+			}
+		}
+		return catListBuilder.toString(); // return string.
 	}
+	
 
 	/**
 	 * Given an id, return a reference to the specified cat if a cat with that ID
