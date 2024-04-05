@@ -51,6 +51,14 @@ jobs:
       key: cached-build-${{github.sha}}
       path: .
 
+    # < added this
+    - name: Cache build
+    uses: actions/cache@v3
+    with:
+      key: cached-build-${{github.sha}}
+      path: .
+    # added this >
+    
   # Uploads dependency graph to GitHub to receive Dependabot alerts 
   update_dependence_graph:
 
@@ -63,6 +71,15 @@ jobs:
       contents: write
 
     steps:
+
+    # < added this
+    - name: Restore cached build
+    uses: actions/cache@v3
+    with:
+      key: cached-build-${{github.sha}}
+      path: .
+    #added this >
+
     - name: Restore cached build
       uses: actions/cache@v3
       with:
