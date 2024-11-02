@@ -6,7 +6,7 @@ import static org.mockito.Mockito.*;
 
 public interface Cat {
 	public static Cat createInstance(InstanceType type, int id, String name) {
-		switch (type) {
+		switch (type) { // fuck this shit
 			case IMPL:
 				return new CatImpl(id, name);
 			case BUGGY:
